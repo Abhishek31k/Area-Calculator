@@ -1,47 +1,21 @@
-const hamburger = document.querySelector(".hamburger");
-const navMenu = document.querySelector(".nav-menu");
+function calculateArea() {
+    let length = document.getElementById("length").value;
+    let width = document.getElementById("width").value;
+    let unit = document.getElementById("unit").value;
 
-hamburger.addEventListener("click", mobileMenu);
-
-function mobileMenu() {
-    hamburger.classList.toggle("active");
-    navMenu.classList.toggle("active");
-}
-
-
-// when we click on hamburger icon its close 
-
-const navLink = document.querySelectorAll(".nav-link");
-
-navLink.forEach(n => n.addEventListener("click", closeMenu));
-
-function closeMenu() {
-    hamburger.classList.remove("active");
-    navMenu.classList.remove("active");
-}
-
-window.addEventListener('resize', function () {
-    const menu = document.querySelector('.hamburger'); // Use class instead of ID
-const hamburger = document.querySelector('.nav-menu'); // Update based on actual structure
-
-
-    if (window.innerWidth > 768) {
-        hamburger.style.display = 'none';
-        menu.style.width = '0';
-    } else {
-        hamburger.style.display = 'block'
+    if (length <= 0 || width <= 0) {
+        alert("Please enter valid dimensions.");
+        return;
     }
-    document.querySelector('form').addEventListener('submit', function (event) {
-        event.preventDefault();
 
-        const form = event.target;
-        const successMessage = document.getElementById('success-message');
+    let area = length * width;
+    
+    // Convert area based on unit
+    if (unit === "acre") {
+        area /= 43560; // Convert sq ft to acres
+    } else if (unit === "sqm") {
+        area *= 0.092903; // Convert sq ft to sqm
+    }
 
-        form.reset();
-        successMessage.hidden = false;
-    })
-
-
-});
-
-window.dispatchEvent(new Event('resize'))
+    document.getElementById("result").innerText = `Area: ${area.toFixed(2)} ${unit}`;
+}
